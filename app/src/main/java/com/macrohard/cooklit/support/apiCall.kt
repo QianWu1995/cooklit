@@ -1,50 +1,49 @@
-package com.macrohard.cooklit.support;
+package com.macrohard.cooklit.support
 
-import android.util.Log;
+import android.util.Log
 
-import org.json.JSONObject;
+import org.json.JSONObject
 
-import java.io.IOException;
+import java.io.IOException
 
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 
 /**
  * Created by qianwu on 2018-05-21.
  */
 
 
-public class apiCall {
+class apiCall {
 
-    public JSONObject mJSONObject;
+    var mJSONObject: JSONObject
 
 
-    public void request(String type) {
+    fun request(type: String) {
 
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(type).build();
-        okhttp3.Call call = client.newCall(request);
+        val client = OkHttpClient()
+        val request = Request.Builder().url(type).build()
+        val call = client.newCall(request)
 
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-                Log.d("FAIL", "TRUE");
+        call.enqueue(object : Callback {
+            override fun onFailure(call: okhttp3.Call, e: IOException) {
+                Log.d("FAIL", "TRUE")
 
             }
 
-            @Override
-            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+            @Throws(IOException::class)
+            override fun onResponse(call: okhttp3.Call, response: Response) {
 
                 try {
-                    String jsonData = response.body().string();
+                    val jsonData = response.body()!!.string()
                     //Response response = call.execute();
-                    if (response.isSuccessful()) {
+                    if (response.isSuccessful) {
 
                         try {
-                            Log.d("jsonData is", jsonData);
-                            mJSONObject = new JSONObject(jsonData);
+                            Log.d("jsonData is", jsonData)
+                            mJSONObject = JSONObject(jsonData)
                             /*String name = mJSONObject.getString("item_name");
                             String brandname = mJSONObject.getString("brand_name");
                             String describtion = mJSONObject.getString("item_description");
@@ -71,20 +70,20 @@ public class apiCall {
                                     dietary_fiber,sugars,protein,vitamin_a_dv,vitamin_c_dv,calcium_dv,
                                     iron_dv,serving_weight_grams);*/
 
-                        } catch (Exception e) {
-                            Log.d("exception caught", "1");
+                        } catch (e: Exception) {
+                            Log.d("exception caught", "1")
                         }
 
                     } else {
-                        Log.d("jsonData is", "not successful");
+                        Log.d("jsonData is", "not successful")
                     }
 
-                } catch (IOException e) {
-                    Log.d("exception caught", "2");
+                } catch (e: IOException) {
+                    Log.d("exception caught", "2")
                 }
 
             }
-        });
+        })
 
     }
 }
