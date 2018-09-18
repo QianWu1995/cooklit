@@ -1,5 +1,6 @@
 package com.macrohard.cooklit.model.activities
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -19,7 +20,7 @@ class FirstTimeActivity : AppCompatActivity() {
 
         val basicSharedPreference = getSharedPreferences(SHARED_PREFERENCE_APP_BASICS, Context.MODE_PRIVATE)
         if (!basicSharedPreference.getBoolean(SHARED_PREFERENCE_FIRST_TIME, true)) {
-            val myKitchenIntent = Intent(this@FirstTimeActivity, MyKitchenActivity::class.java)
+            val myKitchenIntent = Intent(this@FirstTimeActivity, MyKitchenActivity)
             startActivity(myKitchenIntent)
             finish()
             return
